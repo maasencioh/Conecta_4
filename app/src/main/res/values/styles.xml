@@ -13,6 +13,7 @@
         <item name="android:layout_height">match_parent</item>
         <item name="android:background">@android:color/transparent</item>
         <item name="android:src">@drawable/c4_button</item>
+        <item name="android:onClick">onCircleClick</item>
     </style>
 
 </resources>

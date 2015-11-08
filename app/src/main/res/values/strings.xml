@@ -2,4 +2,5 @@
     <string name="app_name">Conecta4</string>
     <string name="title">CONECTA 4</string>
     <string name="contentDescription">ring</string>
+    <string name="errorFull">Position not allowed</string>
 </resources>
