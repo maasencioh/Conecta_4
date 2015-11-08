@@ -1,9 +1,9 @@
 # IDE
-/.idea/workspace.xml
-/.idea/libraries
+.idea/
 .DS_Store
 /build
 /captures
+*.iml
 
 # Built application files
 *.apk
