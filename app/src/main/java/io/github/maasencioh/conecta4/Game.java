@@ -9,16 +9,18 @@ import java.util.Arrays;
 public class Game {
 
     // board of the game
-    private int board [][] = new int[6][7];
     private int emptyPlaces;
+    private int rows = 6;
+    private int columns = 7;
+    private int board [][] = new int[rows][columns];
 
     /**
      * Constructor: initializes board with zeros
      */
     public Game() {
-        emptyPlaces = 7*6;
-        for (int i = 0; i < 6; i++)
-            for (int j = 0; j < 7; j++)
+        emptyPlaces = columns*rows;
+        for (int i = 0; i < rows; i++)
+            for (int j = 0; j < columns; j++)
                 this.board[i][j] = 0;
     }
 
@@ -29,7 +31,7 @@ public class Game {
      */
     boolean isPossible(int i, int j) {
         boolean last = true;
-        for (int k = i + 1; k < 6; k++)
+        for (int k = i + 1; k < rows; k++)
             last = last && (this.board[k][j] != 0);
         return (this.board[i][j] == 0) && last;
     }
@@ -41,10 +43,11 @@ public class Game {
         if (emptyPlaces > 0) {
             int i, j;
             do {
-                i = (int) (Math.random() * 6);
-                j = (int) (Math.random() * 7);
+                i = (int) (Math.random() * rows);
+                j = (int) (Math.random() * columns);
             } while (!isPossible(i, j));
-            board[i][j] = 2;
+            int machineId = 2;
+            board[i][j] = machineId;
             emptyPlaces -= 1;
         }
     }
@@ -57,7 +60,8 @@ public class Game {
      */
     boolean setBoard(int i, int j) {
         if (isPossible(i, j)) {
-            board[i][j] = 1;
+            int humanId = 1;
+            board[i][j] = humanId;
             emptyPlaces -= 1;
             return true;
         }
@@ -72,5 +76,68 @@ public class Game {
      */
     int getBoard(int i, int j) {
         return board[i][j];
+    }
+
+    /**
+     * Check if the current player has 4 in row
+     * @param playerTurn {number}: id of the player
+     * @return {boolean}: if the current player wins
+     */
+    boolean checkRows (int playerTurn) {
+        for (int i = 0; i < rows; i++)
+            for (int j = 0; j < (columns - 3); j++) {
+                if ((board[i][j] == playerTurn) && (board[i][j + 1] == playerTurn) &&
+                        (board[i][j + 2] == playerTurn) && (board[i][j + 3] == playerTurn)) {
+                    return true;
+                }
+            }
+        return false;
+    }
+
+    /**
+     * Check if the current player has 4 in column
+     * @param playerTurn {number}: id of the player
+     * @return {boolean}: if the current player wins
+     */
+    boolean checkColumns (int playerTurn) {
+        for (int j = 0; j < columns; j++)
+            for (int i = 0; i < (rows - 3); i++) {
+                if ((board[i][j] == playerTurn) && (board[i + 1][j] == playerTurn) &&
+                        (board[i + 2][j] == playerTurn) && (board[i + 3][j] == playerTurn)) {
+                    return true;
+                }
+            }
+        return false;
+    }
+
+    /**
+     * Check if the current player has 4 in diagonal
+     * @param playerTurn {number}: id of the player
+     * @return {boolean}: if the current player wins
+     */
+    boolean checkDiagonals (int playerTurn) {
+        for (int j = 0; j < columns; j++)
+            for (int i = 0; i < (rows - 3); i++) {
+                try {
+                    if ((board[i][j] == playerTurn) && (board[i + 1][j + 1] == playerTurn) &&
+                            (board[i + 2][j + 2] == playerTurn) && (board[i + 3][j + 3] == playerTurn)) {
+                        return true;
+                    } else if ((board[i][j] == playerTurn) && (board[i + 1][j - 1] == playerTurn) &&
+                            (board[i + 2][j - 2] == playerTurn) && (board[i + 3][j - 3] == playerTurn)) {
+                        return true;
+                    }
+                }
+                catch (IndexOutOfBoundsException ignored) {}
+            }
+        return false;
+    }
+
+    /**
+     * Check if the current player wins the match
+     * @param playerTurn {number}: id of the player
+     * @return {boolean}: if the current player wins
+     */
+    boolean checkWinner (int playerTurn) {
+        return checkRows(playerTurn) || checkColumns(playerTurn) || checkDiagonals(playerTurn);
     }
 }

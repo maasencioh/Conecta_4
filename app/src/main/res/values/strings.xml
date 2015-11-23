@@ -3,4 +3,8 @@
     <string name="title">CONECTA 4</string>
     <string name="contentDescription">ring</string>
     <string name="errorFull">Position not allowed</string>
+    <string name="errorEnd">The game has ended</string>
+    <string name="title_activity_initial">Initial</string>
+    <string name="human">Congrats, you win!!!</string>
+    <string name="machine">Sorry, you have lost</string>
 </resources>

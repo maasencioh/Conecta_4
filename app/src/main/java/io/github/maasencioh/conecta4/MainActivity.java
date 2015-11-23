@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -16,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
             {R.id.Button51, R.id.Button52, R.id.Button53, R.id.Button54, R.id.Button55, R.id.Button56, R.id.Button57},
             {R.id.Button61, R.id.Button62, R.id.Button63, R.id.Button64, R.id.Button65, R.id.Button66, R.id.Button67}
     };
+    private boolean end = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,15 +43,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onCircleClick(View v) {
-        int i = rowId(v.getId());
-        int j = columnId(v.getId());
-        if (game.isPossible(i,j)) {
-            game.setBoard(i,j);
-            game.machineTurn();
-            drawBoard();
-        }
-        else {
-            Toast.makeText(this, R.string.errorFull, Toast.LENGTH_SHORT).show();
+        if (!end) {
+            int i = rowId(v.getId());
+            int j = columnId(v.getId());
+            if (game.isPossible(i, j)) {
+                game.setBoard(i, j);
+                if (game.checkWinner(1)) {
+                    end = true;
+                    TextView mainText = (TextView) findViewById(R.id.mainText);
+                    mainText.setText(R.string.human);
+                    mainText.setTextColor(getResources().getColor(R.color.colorGreen));
+                }
+                game.machineTurn();
+                if (game.checkWinner(2)) {
+                    end = true;
+                    TextView mainText = (TextView) findViewById(R.id.mainText);
+                    mainText.setText(R.string.machine);
+                    mainText.setTextColor(getResources().getColor(R.color.colorRed));
+                }
+                drawBoard();
+            } else {
+                Toast.makeText(this, R.string.errorFull, Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(this, R.string.errorEnd, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -61,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
                 id = game.getBoard(i,j);
                 if (id == 1) {
                     img = (ImageButton) findViewById(ids[i][j]);
-                    img.setImageResource(R.drawable.c4_button_yellow);
+                    img.setImageResource(R.drawable.c4_button_green);
                 }
                 else if (id == 2) {
                     img = (ImageButton) findViewById(ids[i][j]);

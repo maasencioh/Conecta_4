@@ -12,7 +12,8 @@
         android:textSize="40sp"
         android:gravity="center"
         android:paddingTop="20dp"
-        android:paddingBottom="10dp"/>
+        android:paddingBottom="10dp"
+        android:id="@+id/mainText"/>
 
     <TableRow android:layout_weight="1">
         <ImageButton
