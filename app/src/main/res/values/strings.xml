@@ -7,4 +7,10 @@
     <string name="title_activity_initial">Initial</string>
     <string name="human">Congrats, you win!!!</string>
     <string name="machine">Sorry, you have lost</string>
+    <string name="about">About</string>
+    <string name="aboutMessage">This is a game where the main goal is to connect 4 tiles in a row, column or diagonal before your competitor. You are only allowed to put a tile in the lowest empty space of each column. Good luck!</string>
+    <string name="settings">Settings</string>
+    <string name="restart">Restart</string>
+    <string name="restartMessage">Do you want to play again?</string>
+    <string name="level">Level selector</string>
 </resources>

@@ -13,15 +13,24 @@ public class Game {
     private int rows = 6;
     private int columns = 7;
     private int board [][] = new int[rows][columns];
+    public int level = 0;
+    private int[] levels = {1,2,4};
+
+    /**
+     * Restart the game
+     */
+    public void restart() {
+        emptyPlaces = columns*rows;
+        for (int i = 0; i < rows; i++)
+            for (int j = 0; j < columns; j++)
+                this.board[i][j] = 0;
+    }
 
     /**
      * Constructor: initializes board with zeros
      */
     public Game() {
-        emptyPlaces = columns*rows;
-        for (int i = 0; i < rows; i++)
-            for (int j = 0; j < columns; j++)
-                this.board[i][j] = 0;
+        restart();
     }
 
     /**
@@ -40,6 +49,8 @@ public class Game {
      * The machine turn to play
      */
     void machineTurn() {
+        int lvl = this.levels[this.level];
+        System.out.println(lvl);
         if (emptyPlaces > 0) {
             int i, j;
             do {
